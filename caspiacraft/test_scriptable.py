@@ -4,8 +4,8 @@ MIT License
 """
 
 # -*- coding: utf-8 -*-
-import time
 from collections import OrderedDict
+import logging
 from pathlib import Path
 
 import cv2
@@ -38,7 +38,7 @@ def test_net(
     cuda=True,
     poly=False,
     refine_net=None,
-    render_result=False,
+    return_heatmap=False,
 ):
     """
     Parameters
@@ -111,12 +111,13 @@ def test_net(
 
     # render results (optional)
     ret_score_heatmap = None
-    if render_result:
+    if return_heatmap:
         render_img = score_text.copy()
         render_img = np.hstack((render_img, score_link))
         ret_score_heatmap = imgproc.cvt2HeatmapImg(render_img)
-
-    return polys, ret_score_heatmap
+        return polys, ret_score_heatmap
+    else:
+        return polys
 
 
 def load_weights_file(model, weights_file, cuda=True):
@@ -138,7 +139,7 @@ def create_net(
     net = net or CRAFT()  # initialize
 
     if net_weights:
-        print(f"Loading weights from checkpoint ({net_weights})")
+        logging.getLogger(__file__).debug(f"Loading weights from checkpoint ({net_weights})")
         load_weights_file(net, net_weights, cuda)
     net.eval()
 
@@ -148,7 +149,7 @@ def create_net(
         from refinenet import RefineNet
 
         refine_net = RefineNet()
-        print(f"Loading weights of refiner from checkpoint ({refiner_weights})")
+        logging.getLogger(__file__).debug(f"Loading weights of refiner from checkpoint ({refiner_weights})")
         load_weights_file(refine_net, refiner_weights, cuda)
         refine_net.eval()
         return net, refine_net
