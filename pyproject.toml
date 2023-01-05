@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "caspiacraft"
+license = {text = "MIT"}
+version = "0.1.0"
+
+[tool.setuptools]
+packages = ["caspiacraft"]
+
+[tool.black]
+exclude = "caspiacraft/*.py"
+include = "caspiacraft/test_scriptable.py"
+
+[tool.isort]
+profile = "black"
+reverse_relative = true
