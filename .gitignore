@@ -4,3 +4,11 @@
 *.pth
 result*
 weights*
+
+# PYTHON byproducts
+*.egg-info
+**/__pycache__
+
+# Projects
+*.vscode
+*.idea
