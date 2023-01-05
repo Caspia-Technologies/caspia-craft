@@ -6,7 +6,6 @@ MIT License
 # -*- coding: utf-8 -*-
 from collections import OrderedDict
 import logging
-from pathlib import Path
 
 import cv2
 import numpy as np
@@ -139,7 +138,9 @@ def create_net(
     net = net or CRAFT()  # initialize
 
     if net_weights:
-        logging.getLogger(__file__).debug(f"Loading weights from checkpoint ({net_weights})")
+        logging.getLogger(__file__).debug(
+            f"Loading weights from checkpoint ({net_weights})"
+        )
         load_weights_file(net, net_weights, cuda)
     net.eval()
 
@@ -149,7 +150,9 @@ def create_net(
         from refinenet import RefineNet
 
         refine_net = RefineNet()
-        logging.getLogger(__file__).debug(f"Loading weights of refiner from checkpoint ({refiner_weights})")
+        logging.getLogger(__file__).debug(
+            f"Loading weights of refiner from checkpoint ({refiner_weights})"
+        )
         load_weights_file(refine_net, refiner_weights, cuda)
         refine_net.eval()
         return net, refine_net
