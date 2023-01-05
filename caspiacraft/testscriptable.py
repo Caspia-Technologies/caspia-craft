@@ -29,6 +29,7 @@ def copyStateDict(state_dict):
 def test_net(
     net,
     image_or_file,
+    *,
     canvas_size=1280,
     mag_ratio=1.5,
     text_threshold=0.7,
@@ -129,19 +130,20 @@ def load_weights_file(model, weights_file, cuda=True):
 
 
 def create_net(
+    weights="weights/craft_mlt_25k.pth",
+    *,
     net=None,
-    net_weights="weights/craft_mlt_25k.pth",
     cuda=True,
     refiner_weights=None,
 ):
     # load net
     net = net or CRAFT()  # initialize
 
-    if net_weights:
+    if weights:
         logging.getLogger(__file__).debug(
-            f"Loading weights from checkpoint ({net_weights})"
+            f"Loading weights from checkpoint ({weights})"
         )
-        load_weights_file(net, net_weights, cuda)
+        load_weights_file(net, weights, cuda)
     net.eval()
 
     # LinkRefiner
