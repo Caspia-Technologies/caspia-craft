@@ -67,11 +67,11 @@ def test_net(
         Render result to image
     """
     if not isinstance(image_or_file, np.ndarray):
-        image = imgproc.loadImage(image_or_file)
+        image_or_file = imgproc.loadImage(image_or_file)
 
     # resize
     img_resized, target_ratio, size_heatmap = imgproc.resize_aspect_ratio(
-        image, canvas_size, interpolation=cv2.INTER_LINEAR, mag_ratio=mag_ratio
+        image_or_file, canvas_size, interpolation=cv2.INTER_LINEAR, mag_ratio=mag_ratio
     )
     ratio_h = ratio_w = 1 / target_ratio
 
