@@ -12,7 +12,7 @@ packages = ["caspiacraft"]
 
 [tool.black]
 exclude = "caspiacraft/*.py"
-include = "caspiacraft/test_scriptable.py"
+include = "caspiacraft/testscriptable.py"
 
 [tool.isort]
 profile = "black"
